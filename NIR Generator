@@ -1,0 +1,107 @@
+import random
+
+def name_generator():
+    consonants = ["b", "c", "ch", "ck", "d", "f", "g", "gh", "h", "j", "k", "l", "m", "n", "mn", "ng", "nk", "s", "p", "ph", "qu", "r", "rs", "s", "st", "t", "th", "v", "w", "x", "z"]
+    vowels = ["a", "ae", "ai", "au", "ay", "e", "ea", "ei", "eo", "eu", "i", "ie", "io", "ia", "iu", "u" "ua", "ue", "uo", "ui", "y"]
+    name_length = random.randint(2,10)
+    tracker = 1
+    name = ""
+    while tracker <= name_length:
+        if tracker%2 == 0:
+            pick = random.randint(0, len(vowels)-1)
+            name = name + vowels[pick]
+        else:
+            pick = random.randint(0, len(consonants)-1)
+            name = name + consonants[pick]
+        tracker +=1
+    name = name.capitalize()
+    return name 
+
+def story_maker():
+    first_name = name_generator()
+    last_name = name_generator()
+    tracker = 1
+    story_length = random.randint(2,5)
+    article_subject = input("Enter risk topic: ")
+    article_region = input("Enter regional focus: ")
+    sentence = ""
+    subjects = ["cybersecurity", "the trade war", "compliance regulation", "the security situation", "data privacy", "travel security", "supply chain integrity", "far right populism", "climate activism", "deregulation"]
+    regions = ["the US", "China,", "the European Union", "North Africa", "the Korean Peninsula", "Russia", "Brazil", "the Asia-Pacific", "Sub-Saharan Africa"]
+    effects = ["entirely eliminate", "improve", "worsen", "destabilize", "create a significant crisis for", "alleviate concerns around", "create alarming new risks around", "fix"]
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    people = ["Boris Johnson", "President Trump", "Kim Jong-un", "Xi Jinping", "President Bolsonaro", "Guaido", "President Moon", "President Putin", "AMLO", "Erdogan"]
+    entities = ["Parliament", "US Congress", "the European Parliament", "Interpol", "a regulatory agency", "a hacker group", "Pyongyang", "Beijing", "Washington", "Brussels"]
+    adverbs = ["aggressively", "quickly", "thoughtfully", "preemptively", "hesitantly", "eagerly", "unsuccessfully", "enthusiastically", "skillfully", "almost"]
+    actions = ["launched a preemptive attack against", "renounced all ties to", "denounced", "praised", "questioned", "met with", "implemented new rules about", "was removed from office by", "sent a delegation to", "railed against", "paid a hefty ransom to"]
+    connectors = ["then,", "but", "however,", "unfortunately,", "because of this,", "this came as", "nevertheless,", "and", "before that could happen,", "as soon as that happened,", "afterward,", "immediately after,"]
+    times = ["in " + str(random.randint(1939, 2019)), "last night", "prior to " + str(random.randint(1939, 2019)), "after " + str(random.randint(1939, 2019)), "in " + months[random.randint(0,11)], "early this week", "late last week", "last month", "last year", "earlier today"]
+    story = "We spoke to RANE expert " + first_name + " " + last_name + " about recent events surrounding " + article_subject + " in " + article_region + " and their implications for businesses. "
+    pick = random.randint(0, len(times)-1)
+    pick2 = random.randint(0, len(entities)-1)
+    pick3 = random.randint(0, len(adverbs)-1)
+    pick4 = random.randint(0, len(actions)-1)
+    pick5 = random.randint(0, 1)
+    pick6 = random.randint(0, len(adverbs)-1)
+    article_actor = entities[pick2]
+    capitalized_word = times[pick]
+    capitalized_word = capitalized_word.capitalize()
+    story += capitalized_word + ", " + entities[pick2] + " " + adverbs[pick3] + " " + actions[pick4] + " "
+    if pick5 == 0:
+        pick = random.randint(0, len(entities)-1)
+        story += entities[pick]
+        article_actee = entities[pick]
+    else:
+        pick = random.randint(0, len(people) -1)
+        story += people[pick]
+        article_actee = people[pick]
+    story += ". "
+    while tracker <= story_length:
+        if tracker > 1:
+            pick = random.randint(0, len(connectors)-1)
+            capitalized_word = connectors[pick]
+            capitalized_word = capitalized_word.capitalize()
+            sentence = sentence + capitalized_word + " " 
+            
+        story_direction = random.randint(0,3)
+        if story_direction == 0:
+            sentence += article_actor + " "
+        if story_direction == 1:
+            sentence += article_actee + " "
+        if story_direction == 2:
+            pick = random.randint(0, len(people)-1)
+            sentence += people[pick] + " "
+        if story_direction ==3:
+            pick = random.randint(0, len(entities)-1)
+            sentence += entities[pick] + " "
+        pick = random.randint(0, len(adverbs)-1)
+        sentence = sentence + adverbs[pick] + " "
+        pick = random.randint(0, len(actions)-1)
+        sentence = sentence + actions[pick] + " "
+        story_direction = random.randint(0,3)
+        if story_direction == 0:
+            sentence += article_actor
+        if story_direction == 1:
+            sentence += article_actee
+        if story_direction == 2:
+            pick = random.randint(0, len(people)-1)
+            sentence += people[pick]
+        if story_direction == 3:
+            pick = random.randint(0, len(entities)-1)
+            sentence += entities[pick]       
+        story_direction = random.randint(0,3)
+        if story_direction == 3:
+            pick = random.randint(0, len(regions)-1)
+            sentence += " in " + regions[pick]
+        story = story + sentence + ". "
+        sentence = ""
+        tracker += 1
+    pick = random.randint(0, len(effects)-1)
+    story += "These events are expected to " + effects[pick] + " " + article_subject + " in " + article_region + ". "
+    pick = random.randint(0, len(subjects)-1)
+    pick2 = random.randint(0, len(regions)-1)
+    pick3 = random.randint(0, len(subjects)-1)
+    pick4 = random.randint(0, len(regions)-1)
+    story += "Companies should closely monitor " + article_actor + "'s actions, particularly in relation to " + article_actee + ", but also for secondary effects on " + subjects[pick] + " in " + regions[pick2] + " and " + subjects[pick3] + " in " + regions[pick4] + "."
+    print(story)
+
+story_maker()
